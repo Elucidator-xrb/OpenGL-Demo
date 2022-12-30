@@ -1,5 +1,24 @@
 #include <opengl/freeglut.h>
 
+void drawCoord() {
+	glBegin(GL_LINES);
+	glColor3f(1.0, 0.0, 0.0);	// 红色-x轴
+	glVertex3f(-6.0, 0.0, 0.0);
+	glVertex3f(6.0, 0.0, 0.0);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3f(0.0, 1.0, 0.0);	// 绿色-y轴
+	glVertex3f(0.0, 0.0, -6.0);
+	glVertex3f(0.0, 0.0, 6.0);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3f(0.0, 0.0, 1.0);	// 蓝色-z轴
+	glVertex3f(0.0, -6.0, 0.0);
+	glVertex3f(0.0, 6.0, 0.0);
+	glEnd();
+}
 
 void display()
 {
@@ -11,37 +30,12 @@ void display()
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	
 	glLoadIdentity();
-	gluLookAt(2, 2, 2, 0.0, 0.0, 0.0, -1, -1, 1);
+	gluLookAt(5.0, 3.0, 4.0, 2.0, 0.0, 0.0, -1, 1, -1);
+
+	drawCoord();
 	
-	// 设置立方体的八个顶点坐标
-	static const GLfloat vertex[][3] = {
-		0.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		1.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 1.0f,
-		1.0f, 0.0f, 1.0f,
-		0.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f
-	};
-	// 设置绘制六个面时顶点的顺序
-	static const GLint index[][4] = {
-		0, 2, 3, 1,
-		0, 4, 6, 2,
-		0, 1, 5, 4,
-		4, 5, 7, 6,
-		1, 3, 7, 5,
-		2, 6, 7, 3
-	};
-	// 绘制六个面
-	glBegin(GL_QUADS);
-	for (int i = 0; i < 6; i++) {
-		for (int j = 0; j < 4; j++) {
-			glColor3fv(vertex[index[i][j]]);
-			glVertex3fv(vertex[index[i][j]]);
-		}
-	}
-	glEnd();
+	glTranslatef(1.5, 0, 0);
+	glutWireSphere(0.5, 50, 20);
 	
 	glutSwapBuffers();
 }

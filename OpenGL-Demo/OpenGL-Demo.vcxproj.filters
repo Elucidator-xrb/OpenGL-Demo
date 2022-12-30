@@ -42,6 +42,9 @@
     <ClCompile Include="CBMPLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="task6-envmap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CBMPLoader.h">

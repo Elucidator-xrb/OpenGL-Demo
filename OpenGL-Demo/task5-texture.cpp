@@ -87,8 +87,6 @@ void display() {
     glutSwapBuffers();
 }
 
-
-
 void reshape(int w, int h) {
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
     glMatrixMode(GL_PROJECTION);
@@ -100,18 +98,14 @@ void reshape(int w, int h) {
 }
 
 int main(int argc, char** argv) {
-    // 初始化显示模式
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(600, 600);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("texture mapping");
-
-    loadTexture();
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
-
-    // 开始主循环绘制
+    loadTexture();
     glutMainLoop();
     return 0;
 }
