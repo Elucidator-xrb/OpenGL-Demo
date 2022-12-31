@@ -2,7 +2,6 @@
 #include <math.h>
 
 #define DEPTH 8
-using namespace std;
 
 GLfloat init_vertex[][3] = {
 	 0.0f,		 0.0f,		 1.0f,
@@ -46,14 +45,14 @@ struct Material {
 	GLfloat* specular;
 };
 
-void normalize3f(GLfloat* v)
+void normalize3fv(GLfloat* v)
 {
 	GLfloat d = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-	for (int i = 0; i < 3; ++i) v[i] /= d;
+	for (int i = 0; i < 3; ++i) 
+		v[i] /= d;
 }
 
-void divide_triangle(GLfloat* a, GLfloat* b, GLfloat* c, int depth)
-{
+void divideTriangle(GLfloat* a, GLfloat* b, GLfloat* c, int depth) {
 	if (depth > 0) {
 		GLfloat ab[3], ac[3], bc[3];
 		for (int i = 0; i < 3; ++i) {
@@ -61,14 +60,14 @@ void divide_triangle(GLfloat* a, GLfloat* b, GLfloat* c, int depth)
 			ac[i] = a[i] + c[i];
 			bc[i] = b[i] + c[i];
 		}	
-		normalize3f(ab);
-		normalize3f(ac);
-		normalize3f(bc);
+		normalize3fv(ab);
+		normalize3fv(ac);
+		normalize3fv(bc);
 
-		divide_triangle(a, ab, ac, depth - 1);
-		divide_triangle(b, bc, ab, depth - 1);
-		divide_triangle(c, ac, bc, depth - 1);
-		divide_triangle(ab, bc, ac, depth - 1);
+		divideTriangle(a, ab, ac, depth - 1);
+		divideTriangle(b, bc, ab, depth - 1);
+		divideTriangle(c, ac, bc, depth - 1);
+		divideTriangle(ab, bc, ac, depth - 1);
 	}
 	else {
 		glBegin(GL_TRIANGLES);
@@ -81,10 +80,10 @@ void divide_triangle(GLfloat* a, GLfloat* b, GLfloat* c, int depth)
 }
 
 void drawSphere() {
-	divide_triangle(init_vertex[0], init_vertex[2], init_vertex[1], DEPTH);
-	divide_triangle(init_vertex[0], init_vertex[3], init_vertex[2], DEPTH);
-	divide_triangle(init_vertex[0], init_vertex[1], init_vertex[3], DEPTH);
-	divide_triangle(init_vertex[1], init_vertex[2], init_vertex[3], DEPTH);
+	divideTriangle(init_vertex[0], init_vertex[2], init_vertex[1], DEPTH);
+	divideTriangle(init_vertex[0], init_vertex[3], init_vertex[2], DEPTH);
+	divideTriangle(init_vertex[0], init_vertex[1], init_vertex[3], DEPTH);
+	divideTriangle(init_vertex[1], init_vertex[2], init_vertex[3], DEPTH);
 }
 
 void drawBottom() {
@@ -174,14 +173,12 @@ void SetLightAndMaterial() {
 	//glEnable(GL_COLOR_MATERIAL);
 	//glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
-
 	glEnable(GL_LIGHTING);     //开启光照系统
 	glEnable(GL_LIGHT0);       //开启GL_LIGHT0光源
 	glEnable(GL_LIGHT1);       //开启GL_LIGHT1光源
 }
 
-void display()
-{
+void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
@@ -215,9 +212,8 @@ void display()
 	glutSwapBuffers();
 }
 
-void reshape(int w, int h)
-{
-	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+void reshape(int w, int h) {
+	glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(60.0, (GLfloat)w / (GLfloat)h, 1.0, 20.0);
@@ -226,8 +222,7 @@ void reshape(int w, int h)
 	gluLookAt(2, 2, 2, 0.0, 0.0, 0.0, -1, -1, 1);
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(600, 600);
