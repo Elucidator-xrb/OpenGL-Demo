@@ -10,7 +10,7 @@
 
 ### Task1 旋转
 
-对应“几何对象与变换”ppt的指定任务，源文件为`task1-rotate.cpp`
+对应“04-几何对象与变换”ppt的指定任务，源文件为`task1-rotate.cpp`
 
 ![](./images/t1.png)
 
@@ -20,9 +20,19 @@
 
 关于旋转，设置一个timer，间隔时间回调，每次调用增加旋转角度，满360度则清空重来（不能用%因为GLfloat不支持）；而在display中，需进行绕某轴旋转的矩阵变换，根据课程描述为先平移再旋转再平移回来。
 
+### Task2 模视变换/投影
+
+对应”05-观察与投影”ppt指定任务，其实其他每次任务都有用到，不过这里也单独给出一次演示，源文件为`task2-projection.cpp`
+
+![](./images/t2.png)
+
+### Task3 球面+光照+阴影
+
+
+
 ### Task6 环境映射
 
-对应”片元着色”ppt指定任务第三项，源文件为`task6-envmap.cpp`
+对应”09-片元着色”ppt指定任务第三项，源文件为`task6-envmap.cpp`
 
 ![](./images/t6.png)
 
@@ -45,6 +55,12 @@ glOrtho();
 glutSolidTeapot();
 
 glTexGeni();	// 纹理坐标自动生成, 我都用了glTexCoord..了 
+
+// display前基操
+glClearColor(1.0, 1.0, 1.0, 1.0);
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+glEnable(GL_DEPTH_TEST);
+glDepthFunc(GL_LEQUAL);	// GL_LESS	深度检测函数，分别时LESS和LESS+EQUAL的含义
 ```
 
 其实好像一般OpenGL程序都会有个init函数，不过我之前都分别命名了，就不改过来了
