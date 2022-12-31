@@ -4,9 +4,19 @@
 
 ### 关于如何运行本作业
 
+本人用了Visual Studio 2022来完成本次任务（初次使用，还是喜欢vsc啊，但那样都得自己配置，也麻烦）；也用它自动生成git库并推导github上，所以相关sln在vs中打开应该就能直接运行了
 
+`#include <opengl/freeglut.h>` 关于这个头文件，好像是我在调弄OpenGL时，根据网上指示将相关需求库加到vs一个环境的目录下的，网上其他OpenGL的程序在这里总会有各种不同，但反正只要保证能用freeglut.h，这里随意调整就好。
+
+由于vs是整个项目一起编译的，所以对于我这个单文件编译的多程序，运行一个时请设置其他每一个文件的Property->General->Exclude From Build为Yes
 
 ### Task 0 绘制试验
+
+古早之前的小试验，“03-基本图形学实验”ppt任务，不过似乎无需提交
+
+![](./images/t0.png)
+
+这还是不是个凸四边形，所以也有折起感
 
 ### Task1 旋转
 
@@ -57,7 +67,13 @@ glEnable(GL_BLEND);	//开启混合模式
 
 ### Task5 纹理映射
 
+对应”09-片元着色”ppt指定任务前两项，源文件为`task5-texture.cpp`
 
+![](./images/t5.png)
+
+为了将准备的bmp文件加载进OpenGL中，用到了CBMPLoader的工具，从github上别人的项目中搞来，然后稍微调整了一些地方以适配自己的开发环境。事先加载纹理的内容包装在了`loadTexture`中
+
+贴图文件在同目录下
 
 ### Task6 环境映射
 

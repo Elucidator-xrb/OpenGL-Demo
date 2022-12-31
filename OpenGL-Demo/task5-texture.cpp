@@ -4,14 +4,14 @@
 GLuint tex2D;
 
 GLfloat cube_v[][3] = {
-    0.0f, 0.0f, 0.0f,
-    1.0f, 0.0f, 0.0f,
-    0.0f, 1.0f, 0.0f,
-    1.0f, 1.0f, 0.0f,
-    0.0f, 0.0f, 1.0f,
-    1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f
+    0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+    0.0, 1.0, 0.0,
+    1.0, 1.0, 0.0,
+    0.0, 0.0, 1.0,
+    1.0, 0.0, 1.0,
+    0.0, 1.0, 1.0,
+    1.0, 1.0, 1.0
 };
 
 GLfloat cube_n[][3] = {
@@ -39,7 +39,6 @@ GLint order[][4] = {
     2, 6, 7, 3
 };
 
-// 初始化参数
 void loadTexture() {
     CBMPLoader bmpLoader;
     bmpLoader.LoadBitmap("./texture-self.bmp");
@@ -79,16 +78,15 @@ void display() {
     glShadeModel(GL_SMOOTH);
     
     glLoadIdentity();
-    gluLookAt(5.0, 3.0, 4.0, 2.0, 0.0, 0.0, -1, 1, -1);
+    gluLookAt(2.0, 2.0, 2.0, 0.0, 0.0, 0.0, -1, 1, -1);
 
-    glTranslatef(0.0f, 0.0f, 0.0f);
     drawCube();
 
     glutSwapBuffers();
 }
 
 void reshape(int w, int h) {
-    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+    glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(60.0, (GLfloat)w / (GLfloat)h, 1.0, 20.0);
